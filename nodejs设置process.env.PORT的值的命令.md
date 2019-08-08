@@ -8,4 +8,4 @@
 
 **2.windows：**
 
-    3.永久生效：set PORT=3001 && node ./bin/www
+    3.临时生效：set PORT=3001 && node ./bin/www
