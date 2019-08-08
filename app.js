@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const bodyParser = require('body-parser');//npm install body-parser --save
 
 /**************************设置nodejs路由对应的文件***************************/
 const indexRouter = require('./routes/index');
@@ -24,6 +25,8 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 //设置静态文件目录
 app.use(express.static(path.join(__dirname, 'public')));

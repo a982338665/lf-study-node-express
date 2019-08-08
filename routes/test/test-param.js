@@ -15,6 +15,11 @@ router.get('/params.html/:id1', function (req, res, next) {
  * 参数解析:post请求传参数  form表单提交
  * http://localhost:3000/testParams/post
  * Content-Type:application/x-www-form-urlencoded
+ *"username":"hhh",
+ * "pwd":"xxx"
+ * 或者：
+ * Content-Type:application/json
+ * {"username":"hhh","pwd":"xxx"}
  */
 router.post('/post', function (req, res, next) {
     let id = req.body.username;
