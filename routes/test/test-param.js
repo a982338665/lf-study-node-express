@@ -12,8 +12,9 @@ router.get('/params.html/:id1', function (req, res, next) {
     res.send('<h1>' + id + '|' + id1 + '</h1>');
 });
 /**
- * 参数解析:post请求传参数
+ * 参数解析:post请求传参数  form表单提交
  * http://localhost:3000/testParams/post
+ * Content-Type:application/x-www-form-urlencoded
  */
 router.post('/post', function (req, res, next) {
     let id = req.body.username;
