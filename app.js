@@ -9,6 +9,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const testRouter = require('./routes/test/index');
 const testNextRouter = require('./routes/test/test-next');
+const testParamsRouter = require('./routes/test/test-param');
 
 const app = express();
 /******************express配置模板视图**********************************/
@@ -46,6 +47,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/test', testRouter);
 app.use('/testNext', testNextRouter);
+app.use('/testParams', testParamsRouter);
 
 /*******************************捕获异常***********************************/
 // catch 404 and forward to error handler
