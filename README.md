@@ -30,6 +30,20 @@ express
     app.js          --项目主文件：对所有资源进行统筹
     package.json    --项目描述文件
     
-**3.路由说明:**
+**3.响应对象res:**
+
+    1.res.send();
+        1.返回任意类型的数据给客户端:
+            json
+            普通文本
+            流文件等
+        2.注意：
+             // res.send(1);如果返回数字，会将其作为返回状态码，所以会报错
+             // res.send();在单次请求中只能发送一次
+        3.链式调用：
+             // res.status(200).send(apiUtil.responseResult(res,true,null,null,{"id":18}));//链式调用
+    2.res.json();
+    3.res.render();//模板渲染
+    4.res.download():数据下载
 
  

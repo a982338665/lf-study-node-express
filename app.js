@@ -8,6 +8,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const testRouter = require('./routes/test/index');
+const testNextRouter = require('./routes/test/test-next');
 
 const app = express();
 /******************express配置模板视图**********************************/
@@ -44,6 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/test', testRouter);
+app.use('/testNext', testNextRouter);
 
 /*******************************捕获异常***********************************/
 // catch 404 and forward to error handler
