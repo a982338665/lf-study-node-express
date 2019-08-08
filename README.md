@@ -15,7 +15,7 @@ express
              run the app:
                  > SET DEBUG=node-express:* & npm start
         3.开启项目：默认端口 3000
-            npm start
+            npm start  (查找package.json中的scripts内容)
             node app
             node ./bin/www
         4.
