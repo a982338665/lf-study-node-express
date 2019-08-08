@@ -14,4 +14,8 @@ express
                  > npm install
              run the app:
                  > SET DEBUG=node-express:* & npm start
-        3.
+        3.开启项目：默认端口 3000
+            npm start
+            node app
+            node ./bin/www
+        4.
