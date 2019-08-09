@@ -27,7 +27,7 @@ app.use(express.urlencoded({extended: false}));
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-//设置静态文件目录
+//设置静态文件目录：每个应用都可以设置多个静态文件目录
 app.use(express.static(path.join(__dirname, 'public')));
 /*************************拦截器：即中间件**************************************/
 /**
@@ -39,6 +39,13 @@ app.use((req, res, next) => {
     console.log('执行中间件...-> 必须调用尾函数next才能进入下一个中间件：');
     next();
     console.log('res:' + res.statusCode);
+    const fs = require('fs');
+    let ip = req.ip;
+    let time = new Date().toLocaleString();
+    let path = __dirname+"/logs/login.txt";
+    let log = "访问时间:"+time+"|IP:"+ip+"|response:"+res.statusCode+"\n";
+    fs.writeFile(path,log,{flag:'a'},(err)=>{
+    });
     // console.log('res:' + res.statusMessage);
     // console.log('res:' + res.socket.remoteAddress);
     // console.log('res:' + res.socket.remotePort);
