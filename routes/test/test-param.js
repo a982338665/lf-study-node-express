@@ -5,10 +5,13 @@ const router = express.Router();
 /**
  * 参数解析:get请求传参数
  * http://localhost:3000/testParams/params.html/23?id=10
+ * 路径参数匹配 及 查询参数获取
  */
-router.get('/params.html/:id1', function (req, res, next) {
+router.get('/params.html/:id', function (req, res, next) {
     let id = req.query.id;
-    let id1 = req.param("id1");
+    //以下两种为匹配路径参数
+    let id1 = req.param("id");
+    let id2 = req.params.id;
     res.send('<h1>' + id + '|' + id1 + '</h1>');
 });
 /**
