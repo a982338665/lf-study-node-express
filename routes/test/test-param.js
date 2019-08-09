@@ -10,9 +10,9 @@ const router = express.Router();
 router.get('/params.html/:id', function (req, res, next) {
     let id = req.query.id;
     //以下两种为匹配路径参数
-    let id1 = req.param("id");
+    // let id1 = req.param("id");//此方法已为弃用
     let id2 = req.params.id;
-    res.send('<h1>' + id + '|' + id1 + '</h1>');
+    res.send('<h1>' + id + '|' + id2 + '</h1>');
 });
 /**
  * 参数解析:post请求传参数  form表单提交

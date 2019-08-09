@@ -45,5 +45,32 @@ express
     2.res.json();
     3.res.render();//模板渲染
     4.res.download():数据下载
+    
+**4.请求对象req:**
 
- 
+    req.params.id       获取匹配路径参数  /params.html/:id    /params.html/23
+    req.param("id")     获取匹配路径参数  /params.html/:id    /params.html/23
+    req.query.id        获取get请求路径查询参数   /params.html/?id=10
+    req.body.username   获取请求体参数
+    req.headers.orgcode 获取请求头参数
+    req.app             当callback为外部文件是，使用此访问express实例
+    req.baseUrl         获取路由由当前安装的url路径
+    req.cookies         cookies
+    req.fresh           判断请求是否还新鲜
+    req.hostname        获取主机名
+    req.ip              获取ip地址
+    req.originalUrl     获取原始请求url
+    req.path            获取请求路径
+    req.protocol        获取协议类型
+    req.route           获取当前匹配的路由
+    req.subdomains      获取子域名
+    req.accpets()       获取请求的Accept头的请求类型
+    req.acceptsCharsets/acceptsEncodings/acceptsLanguages
+    req.get()           获取指定的http请求头
+    req.is()            判断请求头的Content-Type的MIME类型
+    
+**5.中间件：类似于拦截器**
+
+       1.概念：是一个位于客户端和路由直接的函数（app.js中的app.use()都可称为中间件），
+               可以访问请求对象和响应对象，也可以调用下一个中间件，express就是一个由中间件构成的框架 
+        

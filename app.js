@@ -9,7 +9,6 @@ const bodyParser = require('body-parser');//npm install body-parser --save
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const testRouter = require('./routes/test/index');
-const testNextRouter = require('./routes/test/test-next');
 const testParamsRouter = require('./routes/test/test-param');
 
 const app = express();
@@ -24,13 +23,31 @@ app.set('view engine', 'ejs');
 /******************引入要使用的模块**********************************************/
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 //设置静态文件目录
 app.use(express.static(path.join(__dirname, 'public')));
-/*************************拦截器**************************************/
+/*************************拦截器：即中间件**************************************/
+/**
+ * 不符合条件的可在此处拦截:
+ * next之前在接口调用之前拦截
+ * next之后在接口调用之后拦截
+ */
+app.use((req, res, next) => {
+    console.log('执行中间件...-> 必须调用尾函数next才能进入下一个中间件：');
+    next();
+    console.log('res:' + res.statusCode);
+    // console.log('res:' + res.statusMessage);
+    // console.log('res:' + res.socket.remoteAddress);
+    // console.log('res:' + res.socket.remotePort);
+    // console.log('finished！');
+});
+// app.use((req, res, next) => {
+//     console.log('正在执行...');
+//     next();
+// });
 // app.use(function (req, res, next) {
 //     let url = req.originalUrl;//获取浏览器中当前访问的nodejs路由地址；
 //     let userCookies=req.cookies.userCookies;
@@ -49,24 +66,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/test', testRouter);
-app.use('/testNext', testNextRouter);
 app.use('/testParams', testParamsRouter);
 
 /*******************************捕获异常***********************************/
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.use(function (req, res, next) {
+    next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function (err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;
