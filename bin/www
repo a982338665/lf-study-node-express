@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('node-express:server');
 var http = require('http');
+var initData = require('../init/initData');
 
 /**
  * Get port from environment and store in Express.
@@ -27,6 +28,7 @@ var server = http.createServer(app);
 
 server.listen(port,() => {
     console.error('server is running port:' + port)
+    initData.init();
 });
 server.on('error', onError);
 server.on('listening', onListening);

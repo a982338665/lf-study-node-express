@@ -43,7 +43,7 @@ app.use((req, res, next) => {
     const fs = require('fs');
     let ip = req.ip;
     let time = new Date().toLocaleString();
-    let path = __dirname+"/logs/login.txt";
+    let path = __dirname+"/logs/init/login.txt";
     let log = "访问时间:"+time+"|IP:"+ip+"|response:"+res.statusCode+"\n";
     fs.writeFile(path,log,{flag:'a'},(err)=>{
     });
@@ -75,7 +75,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/test', testRouter);
 app.use('/testParams', testParamsRouter);
-app.use('/news', newsRouter);
+// app.use('/news', newsRouter);
 
 /*******************************捕获异常***********************************/
 // catch 404 and forward to error handler
