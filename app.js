@@ -75,7 +75,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/test', testRouter);
 app.use('/testParams', testParamsRouter);
-app.use('/news', newsRouter);
+// app.use('/news', newsRouter);
 
 /*******************************捕获异常***********************************/
 // catch 404 and forward to error handler
