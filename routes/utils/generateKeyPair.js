@@ -1,8 +1,6 @@
 const NodeRSA = require('node-rsa');
 const BASE64 = 'base64';
-const UTF8 = 'utf8'
 const pkcsSize = 512;
-const str = '服务端测试 -> miaomiaomiao~~~';
 
 const conf = {
         "namePub": "pkcs8-miaowenjuan",
@@ -38,64 +36,10 @@ function generateKeyPair(name, namePub, namePri) {
 }
 
 /**
- * 私钥数据签名
- * @param str
+ * 生成公私钥作为配置文件在顶部，然后注释以下代码，导出配置
+ * @type {{namePub: *, publicPem: *, privatePem: *, namePri: *}}
  */
-function dataPrivateSign(str, name, pri) {
-    let privateKey = new NodeRSA({b: pkcsSize});
-    // 2.导入 私钥，并指定使用 pkcs标准，pem格式
-    privateKey.importKey(pri, name);
-    let signedData = privateKey.sign(Buffer.from(str), BASE64, BASE64).toString(BASE64);
-    // let signedData = privateKey.encryptPrivate(str, BASE64, UTF8);
-    console.log('\n使用私钥签名:', signedData);
-    return signedData;
-}
+// let generateKeyPair1 = generateKeyPair('pkcs8', 'miaowenjuan', 'yueke');
+// console.error(generateKeyPair1);
 
-/**
- * 公钥验签
- * @param str
- */
-function dataPubVerifySign(str, rsaStr, name, pub) {
-    // 1.创建RSA对象，并指定 秘钥长度
-    var publicKey = new NodeRSA({b: pkcsSize});
-    // 2.导入 公钥，并指定使用 pkcs标准，pem格式
-    publicKey.importKey(pub, name);
-    let result = publicKey.verify(Buffer.from(str), rsaStr, BASE64, BASE64);
-    console.log('\n验签：\n', result);
-    return result;
-}
-
-/**
- * 对外暴露加签
- * @param str
- * @returns {string}
- */
-function exportDataPrivateSign(str) {
-    return dataPrivateSign(str, conf.namePri, conf.privatePem);
-}
-
-/**
- * 对外暴露验签
- * @param str
- * @returns {string}
- */
-function ExportDataPubVerifySign(str,rasStr) {
-    return dataPubVerifySign(str, rasStr, conf.namePub, conf.publicPem);
-}
-
-function test() {
-    // let generateKeyPairobj = generateKeyPair('pkcs8', 'miaowenjuan', 'yueke');
-    // console.error(JSON.stringify(generateKeyPairobj));
-
-    let generateKeyPairobj = conf;
-    let namePri = generateKeyPairobj.namePri;
-    let namePub = generateKeyPairobj.namePub;
-    let publicPem = generateKeyPairobj.publicPem;
-    let privatePem = generateKeyPairobj.privatePem;
-
-    let dataPrivateSign1 = dataPrivateSign('1212', namePri, privatePem);
-    console.error(dataPubVerifySign('1212', dataPrivateSign1, namePub, publicPem))
-
-}
-
-test();
+exports.signConf = conf;
