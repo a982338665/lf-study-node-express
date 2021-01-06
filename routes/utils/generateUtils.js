@@ -140,7 +140,7 @@ function f(sql, interfaceName, desc) {
         logger.info(req.originalUrl + " --- " + JSON.stringify(req.body));
         let usercode = req.headers.usercode;
         let orgcode = req.headers.orgcode;
-        let sql = "insert into t_s_person(";
+        let sql = "insert into ${tableName}(";
         let params = [];`
     let middle = ''
     let ziduan = updateVAalue.split(",")

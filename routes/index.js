@@ -2,22 +2,28 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
+function connect() {
 //1.连接数据库
-mongoose.connect("mongodb://127.0.0.1:27017/app", (err) => {
-    if (err) {
-        throw err;
-    } else {
-        console.log("mongoServer is running!");
-    }
-});
-//2.定义骨架:一般名称为 集合名+Schema
-const usersSchema = new mongoose.Schema({
-    name: String,
-    country: String,
-    age: Number
-});
+    mongoose.connect("mongodb://127.0.0.1:27017/app", (err) => {
+        if (err) {
+            throw err;
+        } else {
+            console.log("mongoServer is running!");
+        }
+    });
+}
+
+function userSchema() {
+    //2.定义骨架:一般名称为 集合名+Schema
+    const usersSchema = new mongoose.Schema({
+        name: String,
+        country: String,
+        age: Number
+    });
 //3.根据骨架创建模型:参数 模型名称，骨架名称，集合名称   常用于读取数据库
-const usersModel = mongoose.model("users", usersSchema, "users");
+    const usersModel = mongoose.model("users", usersSchema, "users");
+
+}
 
 /**
  * 数据查询
@@ -74,7 +80,7 @@ router.get('/delOne', function (req, res, next) {
 router.get('/delAll', function (req, res, next) {
     usersModel.find({}).exec((err, data) => {
         //data是一个数组
-        data.forEach((v,i) => {
+        data.forEach((v, i) => {
             v.remove((err) => {
                 console.log('删除成功');
             });
@@ -89,17 +95,13 @@ router.get('/delAll', function (req, res, next) {
 router.get('/updateById', function (req, res, next) {
     usersModel.findById("uuid").exec((err, data) => {
         //data是一个对象
-        data.name='wang';
+        data.name = 'wang';
         data.save((err) => {
             console.log('修改成功');
         });
     });
     res.render('index', {title: 'Express'});
 });
-
-
-
-
 
 
 module.exports = router;
