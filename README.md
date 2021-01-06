@@ -1,5 +1,6 @@
 # node-express
 express
+> 合并仓库：基础-https://github.com/a982338665/lf-mk-node-basic.git
 
 **1.express项目初始化：**
 
@@ -81,6 +82,7 @@ express
            
 **6.路由介绍**
 
+    -basic      合并的基础知识
     -bin        执行文件
     -download   模板文件-待下载
     -logs       日志
