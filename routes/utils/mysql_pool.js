@@ -9,15 +9,15 @@ let debug = false
 let pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '1234',
-    database: 'xxx',
+    password: 'root',
+    database: 'test',
     port: 3306
 });
 let logPool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '1234',
-    database: 'xxx',
+    password: 'root',
+    database: 'test',
     port: 3306
 });
 
