@@ -78,5 +78,12 @@ express
             内置中间件：静态文件设置
             第三方中间件:app.use(第三方)->例如文件上传中间件
                 cnpm i multer  --save
-                
-            
+           
+**6.路由介绍**
+    
+    news -- 空的，暂时没用
+    excelappend         excel文件追加行
+    generate            node接口生成工具类
+    test                测试
+    utils               工具类     
+    index.js            mongo      
