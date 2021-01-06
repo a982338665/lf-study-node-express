@@ -1,8 +1,21 @@
-# node-express
-express
+
 > 合并仓库：基础-https://github.com/a982338665/lf-mk-node-basic.git
 
-**1.express项目初始化：**
+* [1\.Express框架相关](#1express框架相关)
+  * [1\.1 express项目初始化](#11-express项目初始化)
+  * [1\.2 项目目录说明：](#12-项目目录说明)
+  * [1\.3 响应对象res](#13-响应对象res)
+  * [1\.4 请求对象req:](#14-请求对象req)
+  * [1\.5 中间件：类似于拦截器](#15-中间件类似于拦截器)
+  * [1\.6\.路由介绍](#16路由介绍)
+* [2\.node启动部署](#2node启动部署)
+  * [2\.1 启动](#21-启动)
+  * [2\.2 forever启动](#22-forever启动)
+
+
+# 1.Express框架相关
+
+## 1.1 express项目初始化
 
     1.安装生成器(全局)：npm/cnpm i -g express-generator
     2.初始化及使用：
@@ -20,7 +33,7 @@ express
                 需要在app.js中添加端口监听才能启动
             node ./bin/www
         
-**2.项目目录说明：**
+## 1.2 项目目录说明：
 
     bin             --可执行文件目录
         www         --可执行文件，一般是项目入口
@@ -31,7 +44,7 @@ express
     app.js          --项目主文件：对所有资源进行统筹
     package.json    --项目描述文件
     
-**3.响应对象res:**
+## 1.3 响应对象res
 
     1.res.send();
         1.返回任意类型的数据给客户端:
@@ -47,7 +60,7 @@ express
     3.res.render();//模板渲染
     4.res.download():数据下载
     
-**4.请求对象req:**
+## 1.4 请求对象req:
 
     req.params.id       获取匹配路径参数  /params.html/:id    /params.html/23
     req.param("id")     获取匹配路径参数  /params.html/:id    /params.html/23
@@ -70,7 +83,7 @@ express
     req.get()           获取指定的http请求头
     req.is()            判断请求头的Content-Type的MIME类型
     
-**5.中间件：类似于拦截器**
+## 1.5 中间件：类似于拦截器
 
        1.概念：是一个位于客户端和路由直接的函数（app.js中的app.use()都可称为中间件），
                可以访问请求对象和响应对象，也可以调用下一个中间件，express就是一个由中间件构成的框架 
@@ -80,7 +93,7 @@ express
             第三方中间件:app.use(第三方)->例如文件上传中间件
                 cnpm i multer  --save
            
-**6.路由介绍**
+## 1.6.路由介绍
 
     -basic      合并的基础知识
     -bin        执行文件
@@ -95,3 +108,66 @@ express
         utils               工具类     
         index.js            mongo      
     -schdule    定时测试
+
+# 2.node启动部署
+
+## 2.1 启动
+
+      ***java启动：**************************************************************
+      chmod 777 mss-api.jar 
+      nohup java -jar mss-api.jar --server.port=8088 >> mss.log  2>& 1 &
+      tail -f mss.log 
+    
+      ***node后台启动:*******************************************************************
+       nohup command & node www & 
+       nohup command & node ./bin/www & 
+       nohup node ./bin/www >> mss.log  2>& 1 &
+
+## 2.2 forever启动
+
+    npm i -g forever
+    
+    　　forever可以看做是一个nodejs的守护进程，能够启动，停止，重启我们的app应用。
+    
+    1.全局安装 forever
+    // 记得加-g，forever要求安装到全局环境下 
+    sudo npm install forever -g
+    2.启动
+    复制代码
+    // 1. 简单的启动 
+    forever start app.js 
+    
+    // 2. 指定forever信息输出文件，当然，默认它会放到~/.forever/forever.log 
+    forever start -l forever.log app.js 
+    
+    // 3. 指定app.js中的日志信息和错误日志输出文件， 
+    // -o 就是console.log输出的信息，-e 就是console.error输出的信息 
+    forever start -o out.log -e err.log app.js 
+    
+    // 4. 追加日志，forever默认是不能覆盖上次的启动日志， 
+    // 所以如果第二次启动不加-a，则会不让运行 
+    forever start -l forever.log -a app.js 
+    
+    // 5. 监听当前文件夹下的所有文件改动 
+    forever start -w app.js 
+    复制代码
+    3.文件改动监听并自动重启
+    // 1. 监听当前文件夹下的所有文件改动（不太建议这样） 
+    forever start -w app.js 
+    4. 显示所有运行的服务
+    forever list 
+    5. 停止操作
+    复制代码
+    // 1. 停止所有运行的node App 
+    forever stopall 
+    
+    // 2. 停止其中一个node App 
+    forever stop app.js 
+    // 当然还可以这样 
+    // forever list 找到对应的id，然后： 
+    forever stop [id] 
+    复制代码
+    6.重启操作
+    重启操作跟停止操作保持一致。
+    // 1. 启动所有 
+    forever restartall
