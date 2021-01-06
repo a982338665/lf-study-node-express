@@ -15,3 +15,5 @@
         const util = require('../utils/util');
         const db = require('../utils/mysql_pool');
         const logger = require('log4js').getLogger("request");
+
+    执行获取代码generateUtils.js
