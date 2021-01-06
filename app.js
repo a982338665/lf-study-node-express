@@ -12,6 +12,7 @@ const testRouter = require('./routes/test/index');
 const testParamsRouter = require('./routes/test/test-param');
 const newsRouter = require('./routes/news/news');
 const generateRouter = require('./routes/generate/generate');
+const excelappendRouter = require('./routes/excelappend/excelappend');
 
 const app = express();
 /******************express配置模板视图**********************************/
@@ -77,6 +78,7 @@ app.use('/users', usersRouter);
 app.use('/test', testRouter);
 app.use('/testParams', testParamsRouter);
 app.use('/generateRouter', generateRouter);
+app.use('/excelappend', excelappendRouter);
 // app.use('/news', newsRouter);
 
 /*******************************捕获异常***********************************/
