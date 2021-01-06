@@ -80,10 +80,16 @@ express
                 cnpm i multer  --save
            
 **6.路由介绍**
-    
-    news -- 空的，暂时没用
-    excelappend         excel文件追加行
-    generate            node接口生成工具类
-    test                测试
-    utils               工具类     
-    index.js            mongo      
+
+    -bin        执行文件
+    -download   模板文件-待下载
+    -logs       日志
+    -mongo      MongoDB介绍
+    -routes
+        news -- 空的，暂时没用
+        excelappend         excel文件追加行
+        generate            node接口生成工具类
+        test                测试
+        utils               工具类     
+        index.js            mongo      
+    -schdule    定时测试
