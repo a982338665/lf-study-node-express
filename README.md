@@ -10,8 +10,10 @@
   * [1\.6\.路由介绍](#16路由介绍)
 * [2\.node启动部署](#2node启动部署)
   * [2\.1 启动](#21-启动)
-  * [2\.2 forever启动](#22-forever启动)
-
+  * [2\.2 windows自带的启动方式](#22-windows自带的启动方式)
+  * [2\.3 forever启动](#23-forever启动)
+  * [2\.4 pm2启动方式](#24-pm2启动方式)
+* [3\.node项目的编译混淆bytecode](#3node项目的编译混淆bytecode)
 
 # 1.Express框架相关
 
@@ -123,7 +125,14 @@
        nohup command & node ./bin/www & 
        nohup node ./bin/www >> mss.log  2>& 1 &
 
-## 2.2 forever启动
+## 2.2 windows自带的启动方式
+
+    start /min node ./bin/www   [后台启动应用程序] ==》还是会有窗口存在
+    netstat -aon |findstr 3011  查看进程号
+    tasklist |findstr 468 查看进程名
+    taskkill /f /t /im 进程号
+
+## 2.3 forever启动
 
     npm i -g forever
     
@@ -171,3 +180,68 @@
     重启操作跟停止操作保持一致。
     // 1. 启动所有 
     forever restartall
+
+## 2.4 pm2启动方式
+    
+    1、全局安装pm2
+        npm install pm2 -g
+    2、全局安装window自启包
+        npm install pm2-windows-startup -g  
+    3、启动pm2
+        pm2-startup install
+    4、配置文件路径和名称并启动
+        pm2 start 路径 --name 名称 --watch
+        pm2 start  D:\我的坚果云\个人实用项目\灯塔\main.js --name  灯塔 --watch
+    5、保存到pm2实现自启 （包含开机自启，已测试）
+        pm2 save
+    6、查看自启程序列表,重启一下就可以知道是不是成功了
+        pm2 ls
+
+    PM2简介
+        PM2是node进程管理工具
+    启动
+        –warch:监听应用目录的变化，一旦发生变化，自动重启，如果要精确监听、不监听的目录，最好通过配置文件。
+        -i --instances: 启用多少个实例，可用于负载均衡。如果-i 0 或者-i max，则根据当前机器核数确定实例数目。
+        –ignore-watch：排除监听的目录/文件，可以是特定的文件名，也可以是正则。比如–ignore-watch=“test node_modules “some scripts””
+        -n --name：应用的名称。查看应用信息的时候可以用到。
+        -o --output ：标准输出日志文件的路径。
+        -e --error ：错误输出日志文件的路径。
+        –interpreter ：the interpreter pm2 should use for executing app (bash, python…)。比如你用的coffee script来编写应用。
+    重启
+        pm2 restart app.js
+    停止
+        pm2 stop 名称或id
+    停止所有
+        pm2 stop all
+    删除
+        pm2 delete app_name|app_id
+        pm2 delete all
+    查看进程状态
+        pm2 list
+    查看日志
+        pm2 logs
+
+# 3.node项目的编译混淆bytecode
+    
+    1.复制compile.js到文件根目录下,引入依赖
+        npm i bytenode --save
+        并且按提示，添加或删除，所要编译的文件，按需要编译文件 【注意，每个项目该文件内容可能都不同】
+    2.复制执行文件 report.js到bin/ 【注意report.js,最好加上，有些编译器不支持识别，加上可作为可执行文件】
+    3.改造将 www 文件重命名为 www.js 移动到 bin/server/ 下
+    4.修改report.js文件
+        #! /usr/bin/env node
+        require('bytenode');
+        require('./server/www');
+    5.执行 complie.js 在根目录下生成dist文件夹
+    7.pm2 start ./dist/bin/report.js
+        测试访问：
+        curl --location --request POST 'localhost:3000/generateRouter/insert' \
+        --header 'Content-Type: application/json' \
+        --data-raw '{"name":0,"deptId":0,"salary":0}'
+    8.错误提示：0|report   | Error: Invalid or incompatible cached data (cachedDataRejected)
+        使用的idea编译，idea配置的版本时node v10.16，执行complie.js后
+        又使用命令行启动，全局配置的node版本是 v12.16，因此报错了
+            0|report   | Error: Invalid or incompatible cached data (cachedDataRejected)
+        解决办法：编译和启动均使用同一版本即可正常启动
+
+    

@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start-3001": "set PORT=3001 && node ./bin/www",
-    "start-3002": "set PORT=3002 && node ./bin/www"
+    "start-3001": "set PORT=3001 && node bin/server/www",
+    "start-3002": "set PORT=3002 && node bin/server/www"
   },
   "dependencies": {
     "async": "latest",
     "body-parser": "^1.19.0",
+    "bytenode": "^1.1.7",
     "chalk": "^4.1.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
